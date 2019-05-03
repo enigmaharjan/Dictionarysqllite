@@ -24,8 +24,8 @@ public class MyHelper<dictionaryList> extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String query = "CREATE TABLE WORDS" + "(" + WordID +"INTEGER PRIMARY KEY AUTOINCREMENT," +
-                "Word TEXT," + "Meaning TEXT)";
+        String query = "CREATE TABLE "+tblWord + "(" + WordID +" INTEGER PRIMARY KEY AUTOINCREMENT," +
+                Word  +" TEXT," + Meaning + " TEXT )";
         db.execSQL(query);
     }
 
@@ -44,17 +44,19 @@ public class MyHelper<dictionaryList> extends SQLiteOpenHelper {
 
         public List<Word> GetAllWords (SQLiteDatabase db) {
             List<Word> dictionaryList = new ArrayList<>();
-            Cursor cursor = db.rawQuery("select * from tblWord", null);
+            String[] columns = {WordID, Word, Meaning};
+            Cursor cursor = db.query(tblWord, columns, null, null, null, null, null);
             if (cursor.getCount() > 0) {
-                dictionaryList.add(new Word(cursor.getInt(0), cursor.getString(1), cursor.getString(2)));
+                while(cursor.moveToNext()) {
+                    dictionaryList.add(new Word(cursor.getInt(0), cursor.getString(1), cursor.getString(2)));
+                }
             }
-
             return dictionaryList;
         }
 
         public List<Word> GetWordbyName(String word, SQLiteDatabase db) {
             List<Word> dictionaryList = new ArrayList<>();
-            Cursor cursor = db.rawQuery("select * from tblWord where Word =?", new String[]{word});
+            Cursor cursor = db.rawQuery("select * from "+tblWord +" where "+ Word +" = ?", new String[]{word});
             if (cursor.getCount() > 0) {
                 while(cursor.moveToNext()) {
                     dictionaryList.add(new Word(cursor.getInt(0), cursor.getString(1), cursor.getString(2)));
