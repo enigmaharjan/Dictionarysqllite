@@ -69,7 +69,7 @@ public class Search extends AppCompatActivity {
                 String selectedItem = (String) parent.getItemAtPosition(position);
                 String meaning = hashMap.get(selectedItem);
                 Intent i = new Intent(Search.this, DisplayMeaning.class);
-                i.putExtra("meaning","hell");
+                i.putExtra("meaning",meaning);
                 startActivity(i);
 //                Toast.makeText(Search.this, meaning, Toast.LENGTH_SHORT).show();
             }

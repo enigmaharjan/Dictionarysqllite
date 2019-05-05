@@ -2,6 +2,7 @@ package helper;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -64,6 +65,12 @@ public class MyHelper<dictionaryList> extends SQLiteOpenHelper {
                 }
             }
             return dictionaryList;
+        }
+
+        public List<Word> DeleteWordbyId(int id, SQLiteDatabase db){
+        List<Word> dictionaryList = new ArrayList<>();
+        db.delete(tblWord,"id=?",new String[]{Integer.toString(id)});
+        return dictionaryList;
         }
 }
 

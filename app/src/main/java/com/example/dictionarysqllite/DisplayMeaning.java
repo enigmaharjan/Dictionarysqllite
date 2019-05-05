@@ -24,7 +24,7 @@ public class DisplayMeaning extends AppCompatActivity {
 
         lvWord = findViewById(R.id.lvWordList);
 //        lvWord.setText("hel");
-        Bundle bundle = new Bundle();
+        Bundle bundle = getIntent().getExtras();
 
         if(bundle != null){
             lvWord.setText(bundle.getString("meaning")+"a");
